@@ -12,13 +12,17 @@ class Test262
     
     protected $results;
     
+    // Array to exclude single test files
     protected $excludedFiles = array(
+        //In this case Peast follows browser implementation throwing exceptions on invalid octals
         "language" . DS . "expressions" . DS . "tagged-template" . DS . "invalid-escape-sequences.js"
     );
     
+    // Array of unimplemented features that should not be tested
     protected $excludedFeatures = array(
-        "async-iteration", "class-fields", "BigInt", "object-rest",
-        "object-spread", "optional-catch-binding"
+        "async-iteration", "BigInt", "object-rest",
+        "object-spread", "optional-catch-binding",
+        "class-fields", "class-fields-public", "class-fields-private"
     );
     
     public function __construct($testsPath)
@@ -37,6 +41,7 @@ class Test262
     
     public function run()
     {
+        // Iterator that loops all tests file
         $testFilesIterator = new \RegexIterator (
             new \RecursiveIteratorIterator(
                 new \RecursiveDirectoryIterator($this->testPath)
@@ -45,32 +50,38 @@ class Test262
         );
         
         foreach ($testFilesIterator as $testFile) {
+            // Skip files to exclude
             if (in_array(
                     str_replace($this->testPath . DS, "", $testFile),
                     $this->excludedFiles
                 )) {
                 continue;
             }
+            // Run test on current file
             $this->test($testFile->getPathname());
         }
     }
     
     public function test($testFile)
     {
+        // Get data and metadata from test file
         list($source, $flags, $features, $expected, $errorPhase) = $this->getTestData($testFile);
         
+        // Exclude tests that require unimplemented features and tests that fail
+        // on runtime or early error since Peast does not handle them
         $excludedFeatures = array_intersect($this->excludedFeatures, $features);
-        
         if ($excludedFeatures || $errorPhase === "runtime" || $errorPhase === "early") {
             return;
         }
         
+        // Check if it must be parsed as a module
         if (in_array("module", $flags)) {
             $sourceType = \Peast\Peast::SOURCE_TYPE_MODULE;
         } else {
             $sourceType = \Peast\Peast::SOURCE_TYPE_SCRIPT;
         }
         
+        // Check if it must be executed in strict mode
         if (in_array("onlyStrict", $flags)) {
             $source = '"use strict"' . "\n" . $source;
         }
@@ -79,6 +90,7 @@ class Test262
         
         $start = microtime(true);
         
+        // Run the test
         $result = null;
         try {
             \Peast\Peast::latest($source, $options)->parse();
@@ -90,6 +102,7 @@ class Test262
         
         $end = microtime(true);
         
+        // Report test result
         $this->report($expected, $result, $testFile, $end - $start);
     }
     
