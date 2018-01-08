@@ -1,0 +1,5 @@
+{
+    "require": {
+		"mck89/peast": "dev-master"
+    }
+}

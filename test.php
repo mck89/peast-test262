@@ -2,7 +2,7 @@
 if (!defined("DS")) {
     define("DS", DIRECTORY_SEPARATOR);
 }
-include __DIR__ . DS . ".." . DS . ".." . DS . "Peast" . DS . "vendor" . DS . "autoload.php";
+include __DIR__ . DS . "vendor" . DS . "autoload.php";
 
 class Test262
 {
@@ -13,10 +13,7 @@ class Test262
     protected $results;
     
     // Array to exclude single test files
-    protected $excludedFiles = array(
-        //In this case Peast follows browser implementation throwing exceptions on invalid octals
-        "language" . DS . "expressions" . DS . "tagged-template" . DS . "invalid-escape-sequences.js"
-    );
+    protected $excludedFiles = array();
     
     // Array of unimplemented features that should not be tested
     protected $excludedFeatures = array(
