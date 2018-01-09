@@ -67,7 +67,11 @@ class Test262
         // Exclude tests that require unimplemented features and tests that fail
         // on runtime or early error since Peast does not handle them
         $excludedFeatures = array_intersect($this->excludedFeatures, $features);
-        if ($excludedFeatures || $errorPhase === "runtime" || $errorPhase === "early") {
+        if ($excludedFeatures || 
+            $errorPhase === "runtime" ||
+            $errorPhase === "early" ||
+            $errorPhase === "parse" ||
+            $errorPhase === "resolution") {
             return;
         }
         
