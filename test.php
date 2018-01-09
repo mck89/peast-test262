@@ -110,14 +110,16 @@ class Test262
     public function getTestData($testFile)
     {
         $source = file_get_contents($testFile);
+        $parts = explode("---*/", $source, 2);
+        $header = $parts[0];
         
-        if (preg_match("#flags:\s*\[([^\]]+)\]#", $source, $match)) {
+        if (preg_match("#flags:\s*\[([^\]]+)\]#", $header, $match)) {
             $flags = preg_split("#[\s,]+#", $match[1]);
         } else {
             $flags = array();
         }
         
-         if (preg_match("#features:\s*\[([^\]]+)\]#", $source, $match)) {
+         if (preg_match("#features:\s*\[([^\]]+)\]#", $header, $match)) {
             $features = preg_split("#[\s,]+#", $match[1]);
         } else {
             $features = array();
@@ -125,9 +127,9 @@ class Test262
         
         $expected = true;
         $errorPhase = null;
-        if (preg_match("#type:\s*SyntaxError#", $source)) {
+        if (preg_match("#type:\s*\w*?Error#", $header)) {
             $expected = false;
-            if (preg_match("#phase:\s*(\w+)#", $source, $match)) {
+            if (preg_match("#phase:\s*(\w+)#", $header, $match)) {
                 $errorPhase = $match[1];
             }
         }
