@@ -13,13 +13,15 @@ class Test262
     protected $results;
     
     // Array to exclude single test files
-    protected $excludedFiles = array();
+    protected $excludedFiles = array(
+        "built-ins" . DS . "TypedArray" . DS . "prototype" . DS . "set" . DS . "array-arg-src-tonumber-value-type-conversions.js"
+    );
     
     // Array of unimplemented features that should not be tested
     protected $excludedFeatures = array(
-        "async-iteration", "BigInt", "object-rest",
-        "object-spread", "optional-catch-binding",
-        "class-fields", "class-fields-public", "class-fields-private"
+        "BigInt", "optional-catch-binding", "class-fields",
+        "class-fields-public", "class-fields-private",
+        "numeric-separator-literal"
     );
     
     public function __construct($testsPath)
