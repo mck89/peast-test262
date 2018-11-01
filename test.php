@@ -21,7 +21,10 @@ class Test262
     protected $excludedFeatures = array(
         "BigInt", "optional-catch-binding", "class-fields",
         "class-fields-public", "class-fields-private",
-        "numeric-separator-literal"
+        "numeric-separator-literal", "class-methods-private",
+        "class-static-methods-private", "class-static-fields-public",
+        "class-static-fields-private", "export-star-as-namespace-from-module",
+        "dynamic-import", "import.meta"
     );
     
     public function __construct($testsPath)
