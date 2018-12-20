@@ -19,7 +19,7 @@ class Test262
     
     // Array of unimplemented features that should not be tested
     protected $excludedFeatures = array(
-        "BigInt", "optional-catch-binding", "class-fields",
+        "BigInt", "class-fields",
         "class-fields-public", "class-fields-private",
         "numeric-separator-literal", "class-methods-private",
         "class-static-methods-private", "class-static-fields-public",
