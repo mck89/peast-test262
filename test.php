@@ -21,7 +21,7 @@ class Test262
         "class-fields-public", "class-fields-private",
         "numeric-separator-literal", "class-methods-private",
         "class-static-methods-private", "class-static-fields-public",
-        "class-static-fields-private", "export-star-as-namespace-from-module",
+        "class-static-fields-private",
         "import.meta", "top-level-await", "optional-chaining",
         "coalesce-expression", "hashbang"
     );
