@@ -13,7 +13,14 @@ class Test262
     protected $results;
     
     // Array to exclude single test files
-    protected $excludedFiles = array();
+    protected $excludedFiles = array(
+        // This file includes "new import.meta" syntax, that is semantically correct but never valid at runtime
+        // so Peast does not parse it
+        "language" . DS . "expressions" . DS . "import.meta" . DS . "import-meta-is-an-ordinary-object.js",
+        // Unicode identifiers tests are skipped because they depend on PCRE version
+        "language" . DS . "identifiers" . DS . "start-unicode",
+        "language" . DS . "identifiers" . DS . "part-unicode",
+    );
     
     // Array of unimplemented features that should not be tested
     protected $excludedFeatures = array(
@@ -22,8 +29,9 @@ class Test262
         "numeric-separator-literal", "class-methods-private",
         "class-static-methods-private", "class-static-fields-public",
         "class-static-fields-private",
-        "import.meta", "top-level-await", "optional-chaining",
-        "coalesce-expression", "hashbang"
+        "top-level-await", "optional-chaining",
+        "coalesce-expression", "hashbang",
+        "logical-assignment-operators"
     );
     
     public function __construct($testsPath)
@@ -52,10 +60,15 @@ class Test262
         
         foreach ($testFilesIterator as $testFile) {
             // Skip files to exclude
-            if (in_array(
-                    str_replace($this->testPath . DS, "", $testFile),
-                    $this->excludedFiles
-                )) {
+            $skipMatch = str_replace($this->testPath . DS, "", $testFile);
+            $skip = false;
+            foreach ($this->excludedFiles as $excPattern) {
+                if (strpos($skipMatch, $excPattern) === 0) {
+                    $skip = true;
+                    break;
+                }
+            }
+            if ($skip) {
                 continue;
             }
             // Run test on current file
@@ -169,6 +182,7 @@ class Test262
         
         echo $error ? "F" : ".";
         if ($this->results->Total % self::COLUMNS === 0) {
+            echo " " . $this->results->Total;
             echo "\n";
         }
     }
