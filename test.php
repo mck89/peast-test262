@@ -28,9 +28,7 @@ class Test262
         "class-fields-public", "class-fields-private",
         "numeric-separator-literal", "class-methods-private",
         "class-static-methods-private", "class-static-fields-public",
-        "class-static-fields-private",
-        "top-level-await", "optional-chaining",
-        "coalesce-expression", "hashbang",
+        "class-static-fields-private", "top-level-await", "hashbang",
         "logical-assignment-operators"
     );
     
