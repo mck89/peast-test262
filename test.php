@@ -26,10 +26,9 @@ class Test262
     protected $excludedFeatures = array(
         "class-fields",
         "class-fields-public", "class-fields-private",
-        "numeric-separator-literal", "class-methods-private",
+        "class-methods-private",
         "class-static-methods-private", "class-static-fields-public",
-        "class-static-fields-private", "top-level-await", "hashbang",
-        "logical-assignment-operators"
+        "class-static-fields-private", "top-level-await", "hashbang"
     );
     
     public function __construct($testsPath)
