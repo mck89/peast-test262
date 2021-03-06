@@ -28,7 +28,8 @@ class Test262
         "class-fields-public", "class-fields-private",
         "class-methods-private",
         "class-static-methods-private", "class-static-fields-public",
-        "class-static-fields-private", "top-level-await", "hashbang"
+        "class-static-fields-private", "top-level-await", "hashbang",
+        "arbitrary-module-namespace-names"
     );
     
     public function __construct($testsPath)
