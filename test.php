@@ -24,11 +24,7 @@ class Test262
     
     // Array of unimplemented features that should not be tested
     protected $excludedFeatures = array(
-        "class-fields",
-        "class-fields-public", "class-fields-private",
-        "class-methods-private",
-        "class-static-methods-private", "class-static-fields-public",
-        "class-static-fields-private", "top-level-await", "hashbang",
+        "top-level-await", "hashbang",
         "arbitrary-module-namespace-names"
     );
     
