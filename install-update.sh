@@ -14,8 +14,9 @@ if [ ! -d "$REPODIR" ]; then
     git clone https://github.com/tc39/test262.git
 else
     cd $REPODIR
-    echo "-- Updating master"
-    git checkout master
-    git pull origin master
+    echo "-- Updating"
 fi
+git fetch
+git checkout main
+git pull origin main
 echo "-- DONE"
