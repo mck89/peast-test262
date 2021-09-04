@@ -24,8 +24,9 @@ class Test262
     
     // Array of unimplemented features that should not be tested
     protected $excludedFeatures = array(
-        "top-level-await", "hashbang",
-        "arbitrary-module-namespace-names"
+        "top-level-await", "hashbang", "arbitrary-module-namespace-names",
+        "import-assertions", "json-modules", "class-static-block",
+        "class-fields-private-in"
     );
     
     public function __construct($testsPath)
