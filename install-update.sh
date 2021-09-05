@@ -13,9 +13,9 @@ if [ ! -d "$REPODIR" ]; then
     echo "-- Cloning repository"
     git clone https://github.com/tc39/test262.git
 else
-    cd $REPODIR
     echo "-- Updating"
 fi
+cd $REPODIR
 git fetch
 git checkout main
 git pull origin main
