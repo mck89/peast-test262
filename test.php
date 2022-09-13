@@ -24,7 +24,7 @@ class Test262
     
     // Array of unimplemented features that should not be tested
     protected $excludedFeatures = array(
-        "hashbang", "import-assertions", "json-modules"
+        "import-assertions", "json-modules", "decorators"
     );
     
     public function __construct($testsPath)
