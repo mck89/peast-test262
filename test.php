@@ -4,6 +4,8 @@ if (!defined("DS")) {
 }
 include __DIR__ . DS . "vendor" . DS . "autoload.php";
 
+ini_set("xdebug.max_nesting_level", 1000);
+
 class Test262
 {
     const COLUMNS = 60;
