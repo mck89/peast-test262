@@ -26,7 +26,7 @@ class Test262
     
     // Array of unimplemented features that should not be tested
     protected $excludedFeatures = array(
-        "import-assertions", "json-modules", "decorators"
+        "import-assertions", "json-modules", "decorators", "import-attributes",
     );
     
     public function __construct($testsPath)
@@ -69,6 +69,7 @@ class Test262
             // Run test on current file
             $this->test($testFile->getPathname());
         }
+        return $this;
     }
     
     public function test($testFile)
@@ -206,11 +207,16 @@ class Test262
             }
             echo "\n";
         }
+        return $this;
+    }
+
+    public function terminate()
+    {
+        exit($this->results->Failed ? 1 : 0);
     }
 }
 
 $testsPath = __DIR__ . DS . "test262". DS . "test";
 
 $runner = new Test262($testsPath);
-$runner->run();
-$runner->printReport();
+$runner->run()->printReport()->terminate();
