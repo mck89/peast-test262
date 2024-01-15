@@ -1,0 +1,55 @@
+name: "Run unit tests"
+
+on:
+  - workflow_dispatch
+
+env:
+  COMPOSER_MEMORY_LIMIT: -1
+
+on:
+  workflow_dispatch:
+    inputs:
+      php_version:
+        description: 'PHP Version'
+        required: true
+        default: '8.2'
+        type: choice
+        options:
+          - '5.4'
+          - '5.5'
+          - '5.6'
+          - '7.0'
+          - '7.1'
+          - '7.2'
+          - '7.3'
+          - '7.4'
+          - '8.0'
+          - '8.1'
+          - '8.2'
+
+jobs:
+  test:
+    name: "Build"
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 12
+      matrix:
+        php: ['5.4', '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup PHP ${{ inputs.php_version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php_version }}
+          extensions: json,mbstring
+
+      - name: Install composer dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Install tests
+        run: ./install-update.sh
+
+      - name: Run tests
+        run: php test.php
