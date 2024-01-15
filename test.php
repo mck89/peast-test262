@@ -117,7 +117,7 @@ class Test262
         $end = microtime(true);
         
         // Report test result
-        $this->report($expected, $result, $testFile, $end - $start);
+        $this->report($expected, $result, $testFile, $features, $end - $start);
     }
     
     public function getTestData($testFile)
@@ -150,7 +150,7 @@ class Test262
         return array($source, $flags, $features, $expected, $errorPhase);
     }
     
-    public function report($expected, $result, $testFile, $time)
+    public function report($expected, $result, $testFile, $features, $time)
     {
         $error = null;
         if ($expected && $result) {
@@ -164,7 +164,7 @@ class Test262
         
         if ($error) {
             $this->results->Failed++;
-            $this->results->Errors[] = $testFile . "\n" . $error;
+            $this->results->Errors[] = $testFile . "\nFeatures: " . implode(", ", $features) . "\n" . $error;
         } else {
             $this->results->Success++;
         }
