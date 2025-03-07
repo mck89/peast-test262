@@ -26,8 +26,8 @@ class Test262
     
     // Array of unimplemented features that should not be tested
     protected $excludedFeatures = array(
-        "import-assertions", "decorators",
-        "explicit-resource-management", "source-phase-imports"
+        "import-assertions", "decorators", "explicit-resource-management",
+        "source-phase-imports", "import-defer"
     );
     
     public function __construct($testsPath)
