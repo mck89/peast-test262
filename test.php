@@ -55,6 +55,10 @@ class Test262
         );
         
         foreach ($testFilesIterator as $testFile) {
+            // Skip staging tests
+            if (strpos($testFile, DS . "staging" . DS)) {
+                continue;
+            }
             // Skip files to exclude
             $skipMatch = str_replace($this->testPath . DS, "", $testFile);
             $skip = false;
